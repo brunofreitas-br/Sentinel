@@ -182,7 +182,7 @@ After this assignment the Function’s Managed Identity can **receive messages**
 
 ## ⚖️ Premium Plan – Elastic Scale-out
 
-To ensure the Function keeps up with ~1 400 msg/s (and burst tests above that),
+To ensure the Function keeps up with ~1 160 msg/s (and burst tests above that),
 set **Plan Scale-out** on the Premium plan that hosts the Function App:
 
 | Setting                     | Recommended | Why                                                                                        |
@@ -198,7 +198,7 @@ set **Plan Scale-out** on the Premium plan that hosts the Function App:
 With these bounds and `maxConcurrentCalls 128`, total theoretical throughput is:
 40 instances × 128 calls × 50 msgs/lote ≈ 256 000 msg/s
 
-Plenty of headroom above the required 1 400 msg/s.
+Plenty of headroom above the required 1 160 msg/s.
 
 ---
 
