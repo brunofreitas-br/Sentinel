@@ -1,0 +1,62 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "String"
+        },
+        "dcrName": {
+            "type": "String"
+        },
+        "workspaceResourceId": {
+            "type": "String"
+        },
+        "dataCollectionEndpointId": {
+            "type": "String"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Insights/dataCollectionRules",
+            "apiVersion": "2021-09-01-preview",
+            "name": "[parameters('dcrName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "description": "DCR for Service Bus RawMessage ingestion via Logs Ingestion API",
+                "dataCollectionEndpointId": "[parameters('dataCollectionEndpointId')]",
+                "dataSources": {
+                    "customLogs": [
+                        {
+                            "name": "sb_raw_source",
+                            "streams": [
+                                "Custom-ServiceBusSisetRaw_CL"
+                            ],
+                            "logFormat": "JSON",
+                            "filePatterns": [
+                                "servicebus"
+                            ]
+                        }
+                    ]
+                },
+                "destinations": {
+                    "logAnalytics": [
+                        {
+                            "name": "la_dest",
+                            "workspaceResourceId": "[parameters('workspaceResourceId')]"
+                        }
+                    ]
+                },
+                "dataFlows": [
+                    {
+                        "streams": [
+                            "Custom-ServiceBusSisetRaw_CL"
+                        ],
+                        "destinations": [
+                            "la_dest"
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

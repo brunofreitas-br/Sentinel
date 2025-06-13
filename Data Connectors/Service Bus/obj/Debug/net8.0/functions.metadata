@@ -1,0 +1,25 @@
+[
+  {
+    "name": "ServiceBusToSentinelFunction",
+    "scriptFile": "servicebus.dll",
+    "entryPoint": "YourServiceBus.ServiceBusToSentinelFunction.Run",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "messages",
+        "direction": "In",
+        "type": "serviceBusTrigger",
+        "topicName": "%SB_TOPIC_NAME%",
+        "subscriptionName": "%SB_SUBSCRIPTION_NAME%",
+        "connection": "ServiceBusConnection",
+        "cardinality": "Many",
+        "properties": {
+          "supportsDeferredBinding": "True"
+        }
+      }
+    ]
+  }
+]

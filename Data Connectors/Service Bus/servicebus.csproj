@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AzureFunctionsVersion>v4</AzureFunctionsVersion>
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <SelfContained>false</SelfContained>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Azure Functions Worker SDK and Extensions -->
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="2.0.2" OutputItemType="Analyzer" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.ApplicationInsights" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.ServiceBus" Version="5.22.2" />
+
+    <!-- Azure.Identity supported version (>=1.12.0) -->
+    <PackageReference Include="Azure.Identity" Version="1.12.0" />
+
+    <!-- Azure.Messaging.ServiceBus supported version (>=7.18.1) -->
+    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.18.1" />
+
+    <!-- Newtonsoft.Json (for JSON serialization when sending to DCR) -->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+</Project>
