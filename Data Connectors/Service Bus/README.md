@@ -43,12 +43,12 @@ Designed for + than 100M messages per day (≈ 1 160 msg/s) while staying far be
 
 ## 🔑 Required App Settings
 
-DCE_BASE_URL  = https://.ingest.monitor.azure.com
-DCR_IDS       = dcr-aaaa…;dcr-bbbb…;dcr-cccc…   # semicolon-separated
-STREAM_NAME   = Custom-ServiceBusRaw_CL
-SB_TOPIC_NAME = topicssoevento
-SB_SUBSCRIPTION_NAME = assinaturaSIEM
-ServiceBusConnection__fullyQualifiedNamespace = .servicebus.windows.net
+- DCE_BASE_URL  = https://.ingest.monitor.azure.com
+- DCR_IDS       = dcr-aaaa…;dcr-bbbb…;dcr-cccc…   # semicolon-separated
+- STREAM_NAME   = Custom-ServiceBusRaw_CL
+- SB_TOPIC_NAME = topicssoevento
+- SB_SUBSCRIPTION_NAME = assinaturaSIEM
+- ServiceBusConnection__fullyQualifiedNamespace = .servicebus.windows.net
 
 ---
 
@@ -87,7 +87,7 @@ Default values
 	•	Table name: ServiceBusRaw_CL
 	•	Retention: 90 days (edit the retentionInDays parameter if needed).
 
-After the deployment finishes, the workspace has the Custom_ServiceBusRaw_CL
+After the deployment finishes, the workspace has the ServiceBusRaw_CL
 table ready. 
 
 ---
@@ -105,7 +105,7 @@ We provide an ARM template under:
     - `table-and-dcr-arm/`
         - `create-dcr-servicebusraw.json`
 
-Deploy a DCR (repeat for each of the DCR quantity needed):
+Deploy a DCR (repeat the action for each DCR required, based on the message volume in your environment):
 
 ```bash
 az deployment group create \
@@ -164,7 +164,7 @@ The scope must be the subscription inside the topic (not just the namespace root
    az role assignment create \
   --assignee 9c0b48c0-f833-45e3-b279-f8c83659c9af \
   --role "Azure Service Bus Data Receiver" \
-  --scope ""/subscriptions/<subscription-id>/resourceGroups/<sb-resource-group>/providers/Microsoft.ServiceBus/namespaces/<sb-namespace>/topics/<sb-topic>/subscriptions/<sb-subscription>
+  --scope "/subscriptions/<subscription-id>/resourceGroups/<sb-resource-group>/providers/Microsoft.ServiceBus/namespaces/<sb-namespace>/topics/<sb-topic>/subscriptions/<sb-subscription>"
   ```
 
 Replace every placeholder:
