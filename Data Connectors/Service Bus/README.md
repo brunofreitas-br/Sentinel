@@ -180,6 +180,28 @@ After this assignment the Function’s Managed Identity can **receive messages**
 
 ---
 
+## ⚖️ Premium Plan – Elastic Scale-out
+
+To ensure the Function keeps up with ~1 400 msg/s (and burst tests above that),
+set **Plan Scale-out** on the Premium plan that hosts the Function App:
+
+| Setting                     | Recommended | Why                                                                                        |
+|-----------------------------|-------------|--------------------------------------------------------------------------------------------|
+| **Maximum Burst**           | **40**      | Allows up to 40 instances when queue spikes (Premium P1 limit).                            |
+| **Minimum Instances**       | **2**       | Keeps at least two warm workers for zero-latency processing.                               |
+| **Always Ready Instances**  | **2**       | Same value as Minimum to ensure both instances are pre-warmed.                             |
+| **Enforce Scale-out Limit** | **No**      | Let Azure scale back below 40 when load drops.                                             |
+
+> **Portal path**  
+> Function App ➜ *Scale-out (App Service plan)* ➜ **Elastic Scale-out**
+
+With these bounds and `maxConcurrentCalls 128`, total theoretical throughput is:
+40 instances × 128 calls × 50 msgs/lote ≈ 256 000 msg/s
+
+Plenty of headroom above the required 1 400 msg/s.
+
+---
+
 ## 📈 Monitoring checklist
 	•	Instance Count – expect 2–20 (burst to 40).
 	•	Logs Ingestion Requests/min per DCR – alert at 10 000 (limit 12 000).
