@@ -11,6 +11,7 @@ This repository contains custom-built components and automation resources for Mi
 - `MS-Sentinel/`
   - `Data Connectors/` – Custom data connectors for external sources
     - `AWS-CloudTrail/` – AWS CloudTrail via Lambda + DCE/DCR
+    - `Azure-ServiceBus/` - Azure Service Bus messages to Sentinel (Logs Ingestion API)
   - `Analytic Rules/` – (Coming soon) KQL-based detection templates
   - `Workbooks/` – (Coming soon) Custom dashboards for insights
   - `Playbooks/` – (Coming soon) Logic Apps for automated response
@@ -20,6 +21,23 @@ This repository contains custom-built components and automation resources for Mi
 ---
 
 ## 🔌 Available Data Connectors
+
+### ➤ [Azure Service Bus](./Data%20Connectors/Azure-ServiceBus/)
+
+Ingests messages from a **Service Bus Premium topic** into Sentinel through the Logs Ingestion API.
+
+| Feature | Details |
+|---------|---------|
+| **Scale** | Tested with ≈ 114 M msgs/day (≈ 1 400 msg/s) |
+| **Batching** | 50 msgs/request, random fan-out across 10 DCRs |
+| **Security** | System-assigned Managed Identity only (no SAS) |
+| **IaC** | ARM templates to create the table, DCRs and role assignments |
+| **Tech** | .NET 8 isolated Functions, Premium P1 plan |
+
+> **Why use it?**  
+> Out-of-box Sentinel connectors don’t cover Service Bus. This project offers a turnkey, high-throughput path with full infrastructure-as-code.
+
+---
 
 ### ➤ [AWS CloudTrail](./Data%20Connectors/AWS-CloudTrail/)
 A fully custom data pipeline that collects AWS CloudTrail logs via AWS Lambda and ingests them into Microsoft Sentinel using Azure's Data Collection Rules (DCR) and Data Collection Endpoints (DCE).
